@@ -37,7 +37,10 @@ Our goal is to build a topic sentence generation tool. This tool receives a body
 
 ### T5 Model
 
-### BLEU Score
+### BLEU 
+BLEU(bilingual evaluation understudy) is an algorithm for evaluating the quality of translation by using machine from one language to another.[] It can also be used to compare the similarity between two sentences. That is, the algorithm compute the n-gram overlap between the candidate sentence and multiple reference sentences from corpus with brevity penalty which is used for lowering the score properly when the candidate sentence is too short compared to the closest reference.[] By using the BLEU, we can evaluate the accuracy of the extracted topic sentences by comparing them to actural titles.
 
 ## References
 1. [Wikipedia: Topic Sentence](https://en.wikipedia.org/wiki/Topic_sentence)
+2. [Wikipedia: BLEU](https://en.wikipedia.org/wiki/BLEU)
+3. [Evaluating models](https://cloud.google.com/translate/automl/docs/evaluate#bleu)
