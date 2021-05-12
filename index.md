@@ -11,11 +11,12 @@ hero_link_text: Github Repository
 ## Introduction
 Topic sentence is one of the crucial parts for readers in article reading for many reasons. It summarizes the main idea of a body paragraph to show the big picture of a writer's idea to readers. Other than being a mere summary, topic sentence also serves as a sub-thesis of an article which is general enough to cover the support in the rest of body paragraph while being more direct than the thesis of the whole article[1]. Hence, finding a way to summarize the paragraph with a grammatical sentence will be very helpful for readers to recognize the main idea much easier in a short period of time.
 
-Our goal is to build a topic sentence generation tool. This tool receives a body paragraph as the input then returns a summary sentence as the output. The dataset that we are going to use is [arXiv Dataset](https://www.kaggle.com/Cornell-University/arxiv) from Kaggle which includes millions of paper metadata in json format. Our team uses [T5(Text-to-Text Transfer Transformer)](https://huggingface.co/transformers/model_doc/t5.html) for model traning and [BLEU score](https://en.wikipedia.org/wiki/BLEU) for model evaluation.
+Our goal is to build a topic sentence generation tool. This tool receives a body paragraph as the input then returns a summary sentence as the output. During the project development, we have learned and implemented multiple machine learning algorithms as well as various of libraries and cloud services in order to reach the higher accuracies of topic sentence extraction comparing to the references. 
 
 ## Methodologies
 
 ### Dataset Sample
+The dataset we use is [arXiv Dataset](https://www.kaggle.com/Cornell-University/arxiv) from Kaggle which includes millions of paper metadata in json format. This dataset contains millions of public scholarly article metadata in json format. Each metadata contains an article id, authors, title, abstract and so on. The topic sentence extraction algorithm will extract one topic sentence from each abstract of article and compare them with the title of that one.
 ```javascript
 {
   "id": "0704.0001",
@@ -35,12 +36,26 @@ Our goal is to build a topic sentence generation tool. This tool receives a body
 }
 ```
 
+
 ### T5 Model
+T5(Text-to-Text Transfer Transformer) is an encoder-decoder model pre-trained on a multi-task mixture of unsupervised and supervised tasks and for which each task is converted into a text-to-text format. The text-to-text framework allows researchers to apply the same model to various generative NLP tasks such as question answering, document summerization, sentiment classfication, and so on.[2]<br/>
+<div align=center>
+    <img src="./img/t5_framework.png" />
+</div>
+
+This model mainly comprises an encoding part and a decoding part. The encoder’s inputs first flow through a self-attention layer – a layer that helps the encoder look at other words in the input sentence as it encodes a specific word. The outputs of the self-attention layer are fed to a feed-forward neural network. The exact same feed-forward network is independently applied to each position.The decoder has both those layers, but between them is an attention layer that helps the decoder focus on relevant parts of the input sentence.[3]
+<div align=center>
+    <img src="./img/encoder_decoder_structure.png" />
+</div>
+
 
 ### BLEU 
-BLEU(bilingual evaluation understudy) is an algorithm for evaluating the quality of translation by using machine from one language to another.[] It can also be used to compare the similarity between two sentences. That is, the algorithm compute the n-gram overlap between the candidate sentence and multiple reference sentences from corpus with brevity penalty which is used for lowering the score properly when the candidate sentence is too short compared to the closest reference.[] By using the BLEU, we can evaluate the accuracy of the extracted topic sentences by comparing them to actural titles.
+BLEU(bilingual evaluation understudy) is an algorithm for evaluating the quality of translation by using machine from one language to another.[4] It can also be used to compare the similarity between two sentences. That is, the algorithm compute the n-gram overlap between the candidate sentence and multiple reference sentences from corpus with brevity penalty which is used for lowering the score properly when the candidate sentence is too short compared to the closest reference.[5] By using the BLEU, we can evaluate the accuracy of the extracted topic sentences by comparing them to actural titles.
 
 ## References
 1. [Wikipedia: Topic Sentence](https://en.wikipedia.org/wiki/Topic_sentence)
-2. [Wikipedia: BLEU](https://en.wikipedia.org/wiki/BLEU)
-3. [Evaluating models](https://cloud.google.com/translate/automl/docs/evaluate#bleu)
+2. [Exploring the Limits of Transfer Learning with a Unified
+Text-to-Text Transformer](https://arxiv.org/pdf/1910.10683.pdf)
+3. [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
+4. [Wikipedia: BLEU](https://en.wikipedia.org/wiki/BLEU)
+5. [Evaluating models](https://cloud.google.com/translate/automl/docs/evaluate#bleu)
