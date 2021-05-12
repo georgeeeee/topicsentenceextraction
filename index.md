@@ -36,8 +36,18 @@ The dataset we use is [arXiv Dataset](https://www.kaggle.com/Cornell-University/
 }
 ```
 
+### Preliminary Attempts
 
-### T5 Model
+#### RAKE with NLG
+The very first idea of our team is using RAKE(Rapid Automatic Keyword Extraction) to extract the keywords from abstracts with Natural Language Generation, neural network like RNN and Transformer for example, to generate a readable sentence. However, the final performance was diappointed because of the trivialness of the extracted keywords comparing with the abstracts and the unrelatedness between keywords.
+
+#### AWS Comprehend
+Our team had also tried to take advantage of AWS Comprehend for keyword extraction. But the results are not meet our expectation since the extracted keywords and phrases are too much to generate a meaningful sentence. Also we found that the dataset we were going to use did not provide ground truth to be used during keyword extraction. So we had to use unsupervised learning methods which is less reliable than supervised ones.
+
+### Final Desicion
+After serveral unsuccessful attempts mentioned aboved, our team finally considered to switch the initial idea of combining keyword extraction with topic sentence generation to topic sentence extraction.
+
+#### T5 Model
 T5(Text-to-Text Transfer Transformer) is an encoder-decoder model pre-trained on a multi-task mixture of unsupervised and supervised tasks and for which each task is converted into a text-to-text format. The text-to-text framework allows researchers to apply the same model to various generative NLP tasks such as question answering, document summerization, sentiment classfication, and so on.[2]<br/>
 <div align=center>
     <img src="./img/t5_framework.png" />
@@ -48,8 +58,7 @@ This model mainly comprises an encoding part and a decoding part. The encoder’
     <img src="./img/encoder_decoder_structure.png" />
 </div>
 
-
-### BLEU 
+#### BLEU 
 BLEU(bilingual evaluation understudy) is an algorithm for evaluating the quality of translation by using machine from one language to another.[4] It can also be used to compare the similarity between two sentences. That is, the algorithm compute the n-gram overlap between the candidate sentence and multiple reference sentences from corpus with brevity penalty which is used for lowering the score properly when the candidate sentence is too short compared to the closest reference.[5] By using the BLEU, we can evaluate the accuracy of the extracted topic sentences by comparing them to actural titles.
 
 ## References
